@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Wrapper />
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  components: {
+    Wrapper: () => import('./components/app/Wrapper'),
+  },
+  computed: {
+    ...mapGetters(['store_accessibility/displayNight']),
+  },
 }
+</script>
 
-#nav {
-  padding: 30px;
+<style lang="less">
+@MainBg: #202124;
+@MainColor: #dddddd;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+body {
+  background: @MainBg;
+  color: @MainColor;
+  margin: 0;
+  padding: 0;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  header {
+    background: #2c3e50;
   }
 }
 </style>

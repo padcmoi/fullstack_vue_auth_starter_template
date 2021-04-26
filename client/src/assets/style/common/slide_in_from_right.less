@@ -1,0 +1,55 @@
+@-webkit-keyframes slide_in_from_right {
+    0% {
+        opacity  : 0;
+        transform: translateX(25%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Mozilla Firefox 15 below */
+@-moz-keyframes slide_in_from_right {
+    0% {
+        opacity  : 0;
+        transform: translateX(25%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Opera 12.0 */
+@-o-keyframes slide_in_from_right {
+    0% {
+        opacity  : 0;
+        transform: translateX(25%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* W3, Opera 12+, Firefox 16+ */
+@keyframes slide_in_from_right {
+
+    0%,
+    75% {
+        opacity  : 0;
+        transform: translateX(25%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.slide_in_from_right {
+    -webkit-animation: slide_in_from_right 1s ease-out;
+    -moz-animation   : slide_in_from_right 1000ms ease-out;
+    -o-animation     : slide_in_from_right 1000ms ease-out;
+    animation        : slide_in_from_right 1s ease-out;
+}

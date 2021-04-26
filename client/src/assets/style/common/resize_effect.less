@@ -1,0 +1,117 @@
+@-webkit-keyframes resize_effect {
+
+    70%,
+    90%,
+    100% {
+        width: 0%;
+    }
+
+    15%,
+    30%,
+    50% {
+        width: 100%;
+    }
+
+    60% {
+        width: 25%;
+    }
+
+    80% {
+        width: 75%;
+    }
+
+    95% {
+        width: 50%;
+    }
+}
+
+/* Mozilla Firefox 15 below */
+@-moz-keyframes resize_effect {
+
+    70%,
+    90%,
+    100% {
+        width: 0%;
+    }
+
+    15%,
+    30%,
+    50% {
+        width: 100%;
+    }
+
+    60% {
+        width: 25%;
+    }
+
+    80% {
+        width: 75%;
+    }
+
+    95% {
+        width: 50%;
+    }
+}
+
+/* Opera 12.0 */
+@-o-keyframes resize_effect {
+
+    70%,
+    90%,
+    100% {
+        width: 0%;
+    }
+
+    15%,
+    30%,
+    50% {
+        width: 100%;
+    }
+
+    60% {
+        width: 25%;
+    }
+
+    80% {
+        width: 75%;
+    }
+
+    95% {
+        width: 50%;
+    }
+}
+
+/* W3, Opera 12+, Firefox 16+ */
+@keyframes resize_effect {
+
+    70%,
+    90%,
+    100% {
+        width: 0%;
+    }
+
+    15%,
+    30%,
+    50% {
+        width: 100%;
+    }
+
+    60% {
+        width: 25%;
+    }
+
+    80% {
+        width: 75%;
+    }
+
+    95% {
+        width: 50%;
+    }
+}
+
+.resize_effect {
+    -webkit-animation: resize_effect 1s ease-out;
+    -moz-animation   : resize_effect 800ms ease-out;
+    -o-animation     : resize_effect 800ms ease-out;
+    animation        : resize_effect 1s ease-out;
+}

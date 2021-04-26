@@ -1,0 +1,53 @@
+@-webkit-keyframes opacity_effect {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Mozilla Firefox 15 below */
+@-moz-keyframes opacity_effect {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Opera 12.0 */
+@-o-keyframes opacity_effect {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* W3, Opera 12+, Firefox 16+ */
+@keyframes opacity_effect {
+
+    0%,
+    75% {
+        opacity: 0;
+
+    }
+
+    100% {
+        opacity: 1;
+
+    }
+}
+
+.opacity_effect {
+    -webkit-animation: opacity_effect 1s ease-out;
+    -moz-animation   : opacity_effect 1000ms ease-out;
+    -o-animation     : opacity_effect 1000ms ease-out;
+    animation        : opacity_effect 1s ease-out;
+}

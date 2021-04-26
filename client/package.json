@@ -10,12 +10,14 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "@guillaumebriday/vue-scroll-progress-bar": "^1.0.0",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.5",
+    "egalink-toasty.js": "^1.5.5",
+    "sinon": "^10.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0",
-    "egalink-toasty.js": "^1.5.5"
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",

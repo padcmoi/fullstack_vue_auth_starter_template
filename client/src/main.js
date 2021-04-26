@@ -1,16 +1,19 @@
+import Vue from 'vue'
 import '@babel/polyfill'
 import 'mutationobserver-shim'
-import Vue from 'vue'
 import './plugins/axios'
 import './plugins/bootstrap-vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './assets/common.less'
 
 Vue.config.productionTip = false
 
-new Vue({
+const vm = new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')
+
+export default vm
