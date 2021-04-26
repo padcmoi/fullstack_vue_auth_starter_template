@@ -1,0 +1,11 @@
+describe('-> Bibliothèque de fonctions Tools', () => {
+  require('./Capitalize')
+  require('./checkEmail')
+  require('./getRandomInt')
+  require('./getRandomStr')
+  require('./Lowercase')
+  require('./makeToast')
+  require('./passwordGenerator')
+  require('./truncateStr')
+  require('./Uppercase')
+})
