@@ -25,8 +25,10 @@ L'application Vue.js contient:
 
 #### 🖱️ Démo
 http://demo-vue-jest.naskot.fr/
-credentiels login: demo
-credentiels password: demo123
+
+credentiels:
+- login: demo
+- password: demo123
 
 
 #### 💾 Installation
