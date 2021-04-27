@@ -5,7 +5,7 @@
 Un template de base avec une authentification complète incluant Frontend et Backend
 
 ### 📝Frontend
-Components Vue.js:
+Composants existant Vue.js:
 ✔️ Navbar
 ✔️ Home
 ❌ About
@@ -25,6 +25,8 @@ L'application Vue.js contient:
 
 #### 🖱️ Démo
 http://demo-vue-jest.naskot.fr/
+credentiels login: demo
+credentiels password: demo123
 
 
 #### 💾 Installation

@@ -5,7 +5,7 @@
 A basic frontend and backend template for a complete authentification.
 
 ### 📝Frontend
-Components Vue.js:
+Existing components Vue.js:
 ✔️ Navbar
 ✔️ Home
 ❌ About
@@ -25,6 +25,8 @@ Vue.js content application is:
 
 #### 🌎 Demo
 http://demo-vue-jest.naskot.fr/
+credentials login: demo
+credentials password: demo123
 
 
 #### 💾 Installation
