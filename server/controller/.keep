@@ -1,0 +1,2 @@
+ const params = req.body.params || {}
+ const query = req.query || {}
