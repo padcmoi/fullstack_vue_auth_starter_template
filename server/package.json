@@ -4,8 +4,8 @@
   "private": true,
   "author": "Julien jean",
   "scripts": {
-    "start": "node ./app",
-    "serve": "nodemon ./app"
+    "start": "nodemon ./app",
+    "serve": "set NODE_ENV=development&&nodemon ./app"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

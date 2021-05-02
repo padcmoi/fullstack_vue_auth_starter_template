@@ -13,6 +13,11 @@ if (threadLimit && thread > threadLimit) {
 }
 
 if (cluster.isMaster) {
+  console.log(
+    process.env.NODE_ENV === 'development'
+      ? 'START DEVELOPMENT MODE'
+      : 'START PRODUCTION MODE'
+  )
   console.log('Master PID n°' + process.pid + ' with ' + thread + ' thread(s)')
 
   for (let i = 0; i < thread; i++) {

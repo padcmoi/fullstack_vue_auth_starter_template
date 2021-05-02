@@ -10,7 +10,7 @@ const key = Misc.getRandomStr(
   '_azertyuiopqsdfghjklmwxcvbn_AZERTYUIOPMLKJHGFDSQWXCVBN_123456789_@'
 )
 
-const data = `NODE_ENV=development
+const data = `NODE_ENV=production
 PORT=3000
 MULTI_THREAD_LIMIT=0
 
