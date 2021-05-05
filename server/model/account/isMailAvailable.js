@@ -23,7 +23,7 @@ module.exports = async function (_ = { mail }) {
 
   const result = { isAvailable }
 
-  console.log('/status/mail/' + mail)
+  // console.log('/status/mail/' + mail)
 
   return result
 }

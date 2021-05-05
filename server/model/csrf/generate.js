@@ -52,7 +52,7 @@ module.exports = async function (_ = { oldToken, newToken }) {
     expire_at: (select[0] && select[0].expire_at) || '1970-01-01 00:00:00',
     is_validated,
   }
-  console.log(_res)
+  // console.log(_res)
   return _res
 
   // modelCsrf.read()

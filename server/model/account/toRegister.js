@@ -47,7 +47,7 @@ module.exports = async function (_ = { params }) {
     CorrectFormatMail,
   }
 
-  console.log(is)
+  // console.log(is)
   const insert = {
     username: _.params.user,
     password: await Password.hash(_.params.password1),

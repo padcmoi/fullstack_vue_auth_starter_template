@@ -28,7 +28,7 @@ module.exports = async function (_ = { username }) {
     delete result.isLocked
   }
 
-  console.log('/status/user/' + username)
+  // console.log('/status/user/' + username)
 
   return result
 }

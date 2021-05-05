@@ -100,12 +100,12 @@ const jwt = {
         preparedStatement: [token],
       })
 
-      console.log(existToken[0])
+      // console.log(existToken[0])
       if (!existToken[0]) {
-        console.log('jeton inexistant')
+        // console.log('jeton inexistant')
         return null
       } else if (existToken[0] && existToken[0].is_revoke) {
-        console.log('jeton révoqué')
+        // console.log('jeton révoqué')
         return null
       }
 
