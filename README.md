@@ -1,5 +1,5 @@
 
-# 📦 STARTER TEMPLATE SPA VUE.JS / API NODE.JS + MYSQL 📦
+## 📦 STARTER TEMPLATE SPA VUE.JS / API NODE.JS + MYSQL 📦
 
 ### *Ce projet a été réalisé dans le seul but d'apprendre à titre personnel*
 Un template de base avec une authentification complète incluant Frontend et Backend
