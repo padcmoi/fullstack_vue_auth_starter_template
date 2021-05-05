@@ -10,7 +10,7 @@ dotenv.config()
 module.exports = async function (_ = { params }) {
   let data
 
-  Form.sanitizeEachData(_.params, ['access_token'])
+  Form.sanitizeEachData(_.params, ['access_token', 'password1', 'password2'])
   _.params.firstname = Misc.capitalize(_.params.firstname)
   _.params.lastname = Misc.upperCase(_.params.lastname)
 

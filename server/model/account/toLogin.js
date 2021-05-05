@@ -8,7 +8,7 @@ dotenv.config()
  * @returns
  */
 module.exports = async function (_ = { params }) {
-  Form.sanitizeEachData(_.params, ['access_token'])
+  Form.sanitizeEachData(_.params, ['access_token', 'password'])
   let data = null
   const toastMessage = []
   let access_token = ''
