@@ -20,7 +20,7 @@ L'application Vue.js contient:
 - Un service Api utilisant ``Axios`` pour la communication des données vers et de l'API Node.js
 - ``Bootstrap`` pour l'accessibilité, et les components déjà réalisé
 - une authentification avec un échange de jeton ``JsonWebToken``
-- les formulaires seront soumis à un jeton CSRF personnalisés qui ne seront pas sauvegardés dans les Cookies afin d'éviter de contourner la sécurité CSRF par la faille XSS
+- les formulaires seront soumis à un jeton CSRF personnalisé qui ne seront pas sauvegardés dans les Cookies afin d'éviter de contourner la sécurité CSRF par la faille XSS
 - Tests unitaires ``Jest``
 
 #### 🖱️ Démo

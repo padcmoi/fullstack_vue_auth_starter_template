@@ -1,5 +1,5 @@
 
-# 📦 STARTER TEMPLATE SPA VUE.JS / API NODE.JS + MYSQL 📦
+## 📦 STARTER TEMPLATE SPA VUE.JS / API NODE.JS + MYSQL 📦
 
 ### *The only goal of this project is personal learning*
 A basic frontend and backend template for a complete authentification.
