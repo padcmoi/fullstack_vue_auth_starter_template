@@ -22,6 +22,9 @@ export default {
         captcha: false,
         termsanduse: false,
       },
+      errorFormMsg: {
+        email: "L'adresse de courriel est invalide ou ne correspond pas",
+      },
     }
   },
   beforeMount() {
@@ -118,13 +121,28 @@ export default {
     // Check Password
     //
     // Check Courriel
+    onInputCourriel() {
+      this.form.email2 = ''
+    },
+    onBlurCourriel(mail) {
+      this.$store.dispatch('store_check_form/courrielAvailable', mail)
+    },
     onStateCourriel() {
       const mail1 = this.form.email1 || null
       if (!mail1) {
         this.isPassed.email = false
         return null
       } else {
-        const state = checkEmail(mail1)
+        let state = this.store_check_form.courrielAvailable
+        if (state) {
+          state = checkEmail(mail1)
+          if (!state) {
+            this.errorFormMsg.email = "L'adresse email est invalide"
+          }
+        } else {
+          this.errorFormMsg.email = "L'adresse email est indisponible"
+        }
+
         this.isPassed.email = state
         return state
       }
@@ -134,6 +152,7 @@ export default {
       const mail2 = this.form.email2 || null
 
       if (mail1 !== mail2) {
+        this.errorFormMsg.email = 'Les adresses emails ne correspondent pas'
         this.isPassed.email = false
         return false
       } else {

@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: () => ({
     usernameAvailable: false,
+    courrielAvailable: false,
     overlayState: false,
     passwordRequire: {
       length: 3,
@@ -15,6 +16,9 @@ export default {
   mutations: {
     usernameAvailable(state, payload) {
       state.usernameAvailable = payload || false
+    },
+    courrielAvailable(state, payload) {
+      state.courrielAvailable = payload || false
     },
     passwordRequirement(state, payload) {
       state.passwordRequire = payload
@@ -36,6 +40,16 @@ export default {
       // const response = await api.get('account/status/user', args) // Param en argument
       const response = await api.get('account/status/user/' + username) // Param en route nommée
       commit('usernameAvailable', response.data && response.data['isAvailable'])
+    },
+
+    /**
+     * Vérifie si une adresse de courriel est disponible
+     *
+     * @param {String} mail
+     */
+    async courrielAvailable({ commit }, mail) {
+      const response = await api.get('account/status/mail/' + mail) // Param en route nommée
+      commit('courrielAvailable', response.data && response.data['isAvailable'])
     },
 
     /**

@@ -99,6 +99,8 @@
                       type="email"
                       name="email1"
                       :class="formControl(onStateCourriels())"
+                      @input="onInputCourriel()"
+                      @blur="onBlurCourriel(form.email1)"
                       placeholder="Courriel"
                       v-model="form.email1"
                       v-lowercase
@@ -122,7 +124,7 @@
 
                     <FormInvalidFeedback
                       class="bounce_effect"
-                      label="L'adresse de courriel est invalide ou ne correspond pas"
+                      :label="errorFormMsg.email"
                       :state="onStateCourriels()"
                     />
                   </template>
