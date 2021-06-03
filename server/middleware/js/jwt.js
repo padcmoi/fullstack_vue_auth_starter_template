@@ -100,12 +100,9 @@ const jwt = {
         preparedStatement: [token],
       })
 
-      // console.log(existToken[0])
       if (!existToken[0]) {
-        // console.log('jeton inexistant')
         return null
       } else if (existToken[0] && existToken[0].is_revoke) {
-        // console.log('jeton révoqué')
         return null
       }
 
@@ -126,11 +123,6 @@ const jwt = {
             token,
           ],
         })
-        // console.log('affec row: ' + affected_row)
-        // await Db.delete({
-        //   query: 'DELETE FROM jwt WHERE token = md5(?) LIMIT 1',
-        //   preparedStatement: [token],
-        // })
         return newToken
       } else {
         return token

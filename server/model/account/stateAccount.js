@@ -43,8 +43,6 @@ module.exports = async function (_ = { access_token }) {
       preparedStatement: [parseInt(payload1.userId), access_token],
     })
 
-    // console.log(data)
-
     const accountData = data && data[0]
 
     let isLock = accountData && accountData.is_lock ? true : false
@@ -72,9 +70,6 @@ module.exports = async function (_ = { access_token }) {
       lastname,
       access_token,
     }
-
-    // console.log(payload1)
-    // console.log(response)
   }
 
   return response

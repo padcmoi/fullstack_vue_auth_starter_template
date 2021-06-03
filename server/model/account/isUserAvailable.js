@@ -16,8 +16,6 @@ module.exports = async function (_ = { username }) {
     preparedStatement: [{ username }],
   })
 
-  // console.log(data)
-
   let accountData = data && data[0]
   let isAvailable = accountData && accountData.username ? false : true
   let isLocked = accountData && accountData.is_lock ? true : false
@@ -27,8 +25,6 @@ module.exports = async function (_ = { username }) {
   if (isAvailable) {
     delete result.isLocked
   }
-
-  // console.log('/status/user/' + username)
 
   return result
 }

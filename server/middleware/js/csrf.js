@@ -64,13 +64,10 @@ const csrf = {
     const csrf_token = req.headers['csrf-token']
 
     if (typeof csrf_token === 'string') {
-      const rowAffected = await Db.delete({
+      await Db.delete({
         query: 'DELETE FROM csrf WHERE ? LIMIT 1',
         preparedStatement: { token: csrf_token },
       })
-
-      console.log('row affect:' + rowAffected)
-
       return true
     } else {
       return false

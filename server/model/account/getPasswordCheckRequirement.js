@@ -9,6 +9,5 @@ dotenv.config()
  */
 module.exports = function () {
   const result = Password.configuration()
-  // console.log(result)
   return result
 }

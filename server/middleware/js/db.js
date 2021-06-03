@@ -25,7 +25,6 @@ function requestPromise(query, preparedStatement, hasTransaction = false) {
   const promise = new Promise((resolv, reject) => {
     // Transaction si activé
     if (hasTransaction) {
-      // console.log('->Transaction')
       connection.query('START TRANSACTION;', null)
     }
     // Transaction si activé

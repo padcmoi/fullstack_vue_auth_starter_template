@@ -13,12 +13,6 @@ module.exports = async function (_ = { params }) {
   const toastMessage = []
   let access_token = ''
 
-  console.warn(_.params.user)
-  console.warn(_.params.password)
-  console.warn(_.params.captcha)
-
-  // const select = await Db.get({
-  // const select = Db.formatQuery({
   data = await Db.get({
     query: 'SELECT ? FROM account AS a WHERE ? LIMIT 1',
     preparedStatement: [
@@ -30,7 +24,6 @@ module.exports = async function (_ = { params }) {
       ),
       // WHERE
       { username: _.params.user + '' },
-      // { password: _.params.password + '' },
     ],
   })
 
@@ -66,12 +59,16 @@ module.exports = async function (_ = { params }) {
         { id: (accountData && accountData.id) || -1 },
       ],
     })
+
+    console.warn('Login: ' + _.params.user + ' / OK')
   }
 
   if (isLock) {
     toastMessage.push({ msg: 'Compte verrouillé' })
+    console.warn('Login: ' + _.params.user + ' / LOCKED')
   } else if (!isLoggedIn) {
     toastMessage.push({ msg: 'Identification incorrecte' })
+    console.warn('Login: ' + _.params.user + ' / FAIL')
   }
 
   const result = {

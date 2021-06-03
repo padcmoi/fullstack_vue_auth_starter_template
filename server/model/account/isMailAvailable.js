@@ -16,14 +16,10 @@ module.exports = async function (_ = { mail }) {
     preparedStatement: [{ mail }],
   })
 
-  // console.log(data)
-
   let accountData = data && data[0]
   let isAvailable = accountData && accountData.mail ? false : true
 
   const result = { isAvailable }
-
-  // console.log('/status/mail/' + mail)
 
   return result
 }

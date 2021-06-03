@@ -14,8 +14,6 @@ module.exports = async function (_ = { params }) {
   _.params.firstname = Misc.capitalize(_.params.firstname)
   _.params.lastname = Misc.upperCase(_.params.lastname)
 
-  console.warn(_.params)
-
   //AvailableUsername
   data = await this.isUserAvailable({
     username: _.params.user,
@@ -47,7 +45,6 @@ module.exports = async function (_ = { params }) {
     CorrectFormatMail,
   }
 
-  // console.log(is)
   const insert = {
     username: _.params.user,
     password: await Password.hash(_.params.password1),
@@ -73,20 +70,22 @@ module.exports = async function (_ = { params }) {
 
   if (isRegistered) {
     Db.withTransaction() // prochaine requete SQL en transaction
-    const identifier = await Db.commit({
+    await Db.commit({
       query: 'INSERT INTO account SET ?',
       preparedStatement: [
         // SET
         insert,
       ],
     })
-    console.log(12345969788 + ' ' + identifier)
+    console.warn('Register: ' + _.params.user + ' / OK')
   } else {
     if (data.username === _.params.user) {
       toastMessage.push({ msg: "Le nom d'utilisateur est déja pris" })
+      console.warn('Register: ' + _.params.user + ' / USER FAIL')
     }
     if (data.mail === _.params.email1) {
       toastMessage.push({ msg: "L'adresse de courriel est déja prise" })
+      console.warn('Register: ' + _.params.user + ' / MAIL FAIL')
     }
   }
 
