@@ -98,4 +98,12 @@ describe('GET /account/status/mail/:mail', () => {
     expect(row_deleted).toBeGreaterThanOrEqual(1)
     done()
   })
+
+  afterAll(async () => {
+    // Restaure l'auto incrémentation
+    await Db.merge({
+      query: 'ALTER TABLE `account` auto_increment = 1;',
+    })
+    // Restaure l'auto incrémentation
+  })
 })

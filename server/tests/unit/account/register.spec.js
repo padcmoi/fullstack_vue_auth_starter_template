@@ -34,6 +34,12 @@ describe('POST /account/register', () => {
       query: 'DELETE FROM account WHERE ? LIMIT 1',
       preparedStatement: { username: Form.sanitizeString(fixtures.user) },
     })
+
+    // Restaure l'auto incrémentation
+    await Db.merge({
+      query: 'ALTER TABLE `account` auto_increment = 1;',
+    })
+    // Restaure l'auto incrémentation
   })
 
   describe('Account created with successfull', () => {

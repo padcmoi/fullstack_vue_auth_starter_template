@@ -157,4 +157,12 @@ describe('GET /account/check', () => {
       done()
     })
   })
+
+  afterAll(async () => {
+    // Restaure l'auto incrémentation
+    await Db.merge({
+      query: 'ALTER TABLE `account` auto_increment = 1;',
+    })
+    // Restaure l'auto incrémentation
+  })
 })
