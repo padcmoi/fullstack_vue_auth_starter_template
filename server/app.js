@@ -4,6 +4,8 @@ const logger = require('morgan')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const { start, end } = require('./app/perf')
+const readDir = require('readdir')
+const controllerFiles = readDir.readSync('controller/', ['**.js'])
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -21,10 +23,12 @@ if (require('./app/cluster')) {
       next() // pass control to the next handler
     })
 
-  app
-    // .use('/test', require('./controller/test'))
-    .use('/csrf', require('./controller/csrf'))
-    .use('/account', require('./controller/account'))
+  for (const file of controllerFiles) {
+    const _file = file.split('.')[0] || ''
+    if (_file.length === 0) continue
+
+    app.use(`/${_file}`, require(`./controller/${_file}`))
+  }
 
   // error handler
   app
