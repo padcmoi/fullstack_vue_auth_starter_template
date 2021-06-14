@@ -172,6 +172,46 @@ const jwt = {
       ],
     })
   },
+
+  /**
+   * Avec un jeton, on recherche les informations concernant le compte
+   *
+   * @param {String} token
+   *
+   * @returns {Object} / retourne null si non trouvé
+   */
+  async myInformation(token) {
+    if (typeof token != 'string') throw 'param not string'
+
+    const payload = await this.read(token)
+
+    const request = await Db.get({
+      query:
+        'SELECT ? FROM account WHERE `id` = ? AND `jwt_hash` = MD5(?) LIMIT 1',
+      preparedStatement: [
+        Db.toSqlString(
+          'username, mail, firstname, lastname, is_lock, is_admin,' +
+            'DATE_FORMAT(`created_at`, "%d/%m/%Y %H:%i:%s") AS created_at,' +
+            'DATE_FORMAT(`updated_at`, "%d/%m/%Y %H:%i:%s") AS updated_at,' +
+            'DATE_FORMAT(`last_connected_at`, "%d/%m/%Y %H:%i:%s") AS last_connected_at'
+        ),
+        parseInt(payload.userId),
+        token,
+      ],
+    })
+
+    const data = (request && request[0]) || null
+
+    if (data) {
+      for (const [key, value] of Object.entries(data)) {
+        if (value === 0 || value === 1) {
+          data[key] = data[key] === 1 || false
+        }
+      }
+    }
+
+    return data
+  },
 }
 
 module.exports = jwt
