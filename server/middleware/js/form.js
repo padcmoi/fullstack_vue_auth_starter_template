@@ -25,8 +25,8 @@ const form = {
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;')
+    // .replace(/"/g, '&quot;')
+    // .replace(/'/g, '&#039;')
   },
 
   /**
@@ -112,7 +112,8 @@ const form = {
   isValidMail(mail) {
     if (typeof mail !== 'string') return false
 
-    const re = /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/
+    const re =
+      /^[a-z][a-zA-Z0-9_.]*(\.[a-zA-Z][a-zA-Z0-9_.]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/
     return re.test(String(mail).toLowerCase())
   },
 

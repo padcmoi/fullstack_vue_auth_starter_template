@@ -76,7 +76,7 @@ const jwt = {
       ? jsonwebtoken.decode(token, { complete: false })
       : null
 
-    if (!complete) {
+    if (!complete && payload) {
       delete payload.iat
       delete payload.exp
     }
@@ -184,18 +184,21 @@ const jwt = {
     if (typeof token != 'string') throw 'param not string'
 
     const payload = await this.read(token)
+    const userId = (payload && payload.userId) || -1
 
     const request = await Db.get({
       query:
-        'SELECT ? FROM account WHERE `id` = ? AND `jwt_hash` = MD5(?) LIMIT 1',
+        'SELECT ? FROM account ' +
+        'WHERE `id` = ? AND `jwt_hash` = MD5(?) ' +
+        'AND `is_logged_in` = 1 AND `is_lock` = 0 LIMIT 1',
       preparedStatement: [
         Db.toSqlString(
-          'username, mail, firstname, lastname, is_lock, is_admin,' +
+          'id, username, mail, firstname, lastname, is_lock, is_admin,' +
             'DATE_FORMAT(`created_at`, "%d/%m/%Y %H:%i:%s") AS created_at,' +
             'DATE_FORMAT(`updated_at`, "%d/%m/%Y %H:%i:%s") AS updated_at,' +
             'DATE_FORMAT(`last_connected_at`, "%d/%m/%Y %H:%i:%s") AS last_connected_at'
         ),
-        parseInt(payload.userId),
+        parseInt(userId),
         token,
       ],
     })
