@@ -23,9 +23,11 @@ const jwt = {
     let perf_result = perf_end - perf_start
     perf_result /= 1000
 
-    console.log(
-      `${affected_row} jeton(s) jwt obsolète(s) supprimé(s) en ${perf_result} seconde(s)`
-    )
+    if (affected_row > 0) {
+      console.log(
+        `${affected_row} jeton(s) jwt obsolète(s) supprimé(s) en ${perf_result} seconde(s)`
+      )
+    }
   },
 
   /**
