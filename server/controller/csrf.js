@@ -15,8 +15,6 @@ router
   })
 
   .put('/renew', async function (req, res, next) {
-    console.log('/renew ' + req.headers['csrf-token'])
-
     const view = await modelCsrf.renew(req)
 
     View.json(res, view)
