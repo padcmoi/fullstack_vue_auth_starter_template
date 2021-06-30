@@ -7,18 +7,17 @@ const csurf = require('csurf')
 
 router
   .get('/generate', csurf({ cookie: true }), async function (req, res, next) {
-    const csrf_token = req.query['csrf_token']
     const newToken = req.csrfToken()
 
-    const view = await modelCsrf.generate({ newToken, oldToken: csrf_token })
+    const view = await modelCsrf.generate(req, newToken)
 
     View.json(res, view)
   })
 
   .put('/renew', async function (req, res, next) {
-    const view = await modelCsrf.renew({
-      headerToken: req.headers['csrf-token'],
-    })
+    console.log('/renew ' + req.headers['csrf-token'])
+
+    const view = await modelCsrf.renew(req)
 
     View.json(res, view)
   })

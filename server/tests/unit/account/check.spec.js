@@ -104,6 +104,7 @@ describe('GET /account/check', () => {
     it(`Login and get a Json Web Token`, async (done) => {
       csrf_header = await request
         .get('/csrf/generate')
+        .set({ 'csrf-token': '' })
         .then((response) => response.body.csrf_token)
 
       if (!response) {

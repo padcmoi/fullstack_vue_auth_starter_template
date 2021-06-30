@@ -4,12 +4,17 @@ dotenv.config()
 
 /**
  *
- * @param {Object} _
- * @returns
+ * @param {Object} req
+ * @returns {Object}
  */
-module.exports = async function (_ = { headerToken }) {
-  // Pas besoin de regarder si en header j'ai un jeton csrf, sinon on peut consulter avec req.headers['csrf-token']
+module.exports = async function (req) {
+  const headerToken = req.headers['csrf-token']
 
+  // le header.token doit être renseigné
+  if (typeof headerToken != 'string') {
+    console.log('missing header token')
+    return { api_response: 'missing header token' }
+  }
   // UPDATE csrf SET `expire_at` = DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 15 MINUTE) WHERE `token` = 'lfAKUwXN-Lf_M6GeMsiziu7OEj8P7ov6C1Ds' AND  TIME_TO_SEC( TIMEDIFF(CURRENT_TIMESTAMP() , `expire_at`) ) < 0
 
   await Db.merge({
@@ -22,7 +27,7 @@ module.exports = async function (_ = { headerToken }) {
         ),
       },
       // WHERE
-      { token: _.headerToken },
+      { token: headerToken },
       // AND
       Db.toSqlString(
         'TIME_TO_SEC( TIMEDIFF(CURRENT_TIMESTAMP() , `expire_at`) ) < 0'
@@ -38,7 +43,7 @@ module.exports = async function (_ = { headerToken }) {
         'DATE_FORMAT(`expire_at`, "%d/%m/%Y %H:%i:%s") AS expire_at'
       ),
       // WHERE
-      { token: _.headerToken },
+      { token: headerToken },
       // AND
       Db.toSqlString(
         'TIME_TO_SEC( TIMEDIFF(CURRENT_TIMESTAMP() , `expire_at`) ) < 0'
@@ -47,11 +52,11 @@ module.exports = async function (_ = { headerToken }) {
   })
 
   const is_validated = select[0] && select[0].expire_at ? true : false
-  const _res = {
-    csrf_token: is_validated ? _.headerToken : '',
+  const response = {
+    csrf_token: is_validated ? headerToken : '',
     expire_at: (select[0] && select[0].expire_at) || '1970-01-01 00:00:00',
     is_validated,
   }
 
-  return _res
+  return response
 }
