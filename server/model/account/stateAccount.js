@@ -1,6 +1,4 @@
 const { Db, Jwt } = require('../../middleware/index')
-const dotenv = require('dotenv')
-dotenv.config()
 
 /**
  *

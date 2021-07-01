@@ -1,6 +1,4 @@
 const { Db, Form, Misc, Password } = require('../../middleware/index')
-const dotenv = require('dotenv')
-dotenv.config()
 
 /**
  *

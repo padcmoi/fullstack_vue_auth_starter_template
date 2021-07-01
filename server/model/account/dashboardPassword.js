@@ -1,6 +1,4 @@
 const {} = require('../../middleware/index')
-const dotenv = require('dotenv')
-dotenv.config()
 
 /**
  *

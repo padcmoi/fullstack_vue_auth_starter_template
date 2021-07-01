@@ -1,6 +1,4 @@
 const { Password } = require('../../middleware/index')
-const dotenv = require('dotenv')
-dotenv.config()
 
 /**
  *

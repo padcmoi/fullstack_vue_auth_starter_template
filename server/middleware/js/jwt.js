@@ -1,7 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken')
-const dotenv = require('dotenv')
 const Db = require('./db')
-dotenv.config()
 
 const jwt = {
   /**

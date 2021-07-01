@@ -1,7 +1,3 @@
-const dotenv = require('dotenv')
-const e = require('express')
-dotenv.config()
-
 const misc = {
   /**
    * formate la chaine de caractères en minuscule

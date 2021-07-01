@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt')
 const Db = require('./db')
-const dotenv = require('dotenv')
-dotenv.config()
 
 // rounds=8 : ~40 hashes/sec
 // rounds=9 : ~20 hashes/sec

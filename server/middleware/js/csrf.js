@@ -1,7 +1,5 @@
 const Db = require('./db')
 const View = require('./view')
-const dotenv = require('dotenv')
-dotenv.config()
 
 const csrf = {
   /**

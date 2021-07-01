@@ -1,6 +1,4 @@
 const mysql = require('mysql')
-const dotenv = require('dotenv')
-dotenv.config()
 
 const connection = mysql.createConnection({
   host: process.env.MYSQL_HOST,
@@ -102,8 +100,8 @@ const db = {
    *
    * @returns {Object}
    */
-  async get(_req = { query, preparedStatement }) {
-    const sql = connection.format(_req.query, _req.preparedStatement)
+  async get(req = { query, preparedStatement }) {
+    const sql = connection.format(req.query, req.preparedStatement)
     const result = await this.query(sql)
 
     return result
@@ -119,8 +117,8 @@ const db = {
    *
    * @returns {Number} - Last Insert ID
    */
-  async commit(_req = { query, preparedStatement }) {
-    const sql = connection.format(_req.query, _req.preparedStatement)
+  async commit(req = { query, preparedStatement }) {
+    const sql = connection.format(req.query, req.preparedStatement)
     const data = await this.query(sql)
 
     return parseInt(data.insertId)
@@ -136,8 +134,8 @@ const db = {
    *
    * @returns {Number}
    */
-  async merge(_req = { query, preparedStatement }) {
-    const sql = connection.format(_req.query, _req.preparedStatement)
+  async merge(req = { query, preparedStatement }) {
+    const sql = connection.format(req.query, req.preparedStatement)
     const data = await this.query(sql)
 
     return parseInt(data.changedRows)
@@ -153,8 +151,8 @@ const db = {
    *
    * @returns {Number} nombre de ligne(s) affectée(s)
    */
-  async delete(_req = { query, preparedStatement }) {
-    const sql = connection.format(_req.query, _req.preparedStatement)
+  async delete(req = { query, preparedStatement }) {
+    const sql = connection.format(req.query, req.preparedStatement)
     const data = await this.query(sql)
 
     return parseInt(data.affectedRows)
@@ -186,8 +184,8 @@ const db = {
    *
    * @returns {String}
    */
-  formatQuery(_req = { query, preparedStatement }) {
-    const sql = connection.format(_req.query, _req.preparedStatement)
+  formatQuery(req = { query, preparedStatement }) {
+    const sql = connection.format(req.query, req.preparedStatement)
     return sql
   },
 }

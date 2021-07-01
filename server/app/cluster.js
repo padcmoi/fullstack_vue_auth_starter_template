@@ -1,6 +1,3 @@
-const dotenv = require('dotenv')
-dotenv.config()
-
 // Charge les paquetages pour le multi thread
 const cluster = require('cluster')
 const os = require('os')

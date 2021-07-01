@@ -1,7 +1,5 @@
 const { Misc } = require('../middleware/index')
 const createFile = require('create-file')
-const dotenv = require('dotenv')
-dotenv.config()
 
 if (typeof process.env.PORT !== 'undefined') return
 

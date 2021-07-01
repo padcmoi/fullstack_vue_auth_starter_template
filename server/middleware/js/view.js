@@ -1,6 +1,4 @@
 const { end } = require('../../app/perf')
-const dotenv = require('dotenv')
-dotenv.config()
 
 const json = function (res, view) {
   view.execution_time = { ms: end() }
