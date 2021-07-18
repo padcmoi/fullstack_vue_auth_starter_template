@@ -1,110 +1,44 @@
 const dotenv = require('dotenv')
 dotenv.config()
 const request = require('supertest')('http://127.0.0.1:3000')
-const { Misc, Db } = require('../../../../middleware/index')
+const { Misc } = require('../../../../middleware/index')
+const { getCsrfToken, FixtureManager, goLogin } = require('../../_misc/index')
 
 describe('GET /account/status/mail/:mail', () => {
-  let csrf_header, urn1, urn2
+  let fixtureManager, csrf_header, fixtures, login_response, access_token
 
-  const fixtures = {
-    username: '_' + Misc.getRandomStr(20),
-    mail: '_' + Misc.getRandomStr(20) + '@units_tests.na',
-    password: '',
-    firstname: '',
-    lastname: '',
-    is_lock: 0,
-  }
-  const non_existent_data = '_' + Misc.getRandomStr(25) + '@units_tests.na'
+  beforeAll(async () => {
+    fixtureManager = new FixtureManager()
 
-  beforeEach(async () => {
-    if (!csrf_header) {
-      csrf_header = await request
-        .get('/csrf/generate')
-        .set({ 'csrf-token': '' })
-        .then((response) => response.body.csrf_token)
-      if (!csrf_header) csrf_header = ''
-    }
+    csrf_header = await getCsrfToken(request)
+
+    fixtures = await fixtureManager.get()
+
+    login_response = await goLogin(request, fixtures.username, '&_tests_units')
+
+    access_token = login_response.access_token || ''
   })
 
-  it('Create fixtures', async (done) => {
-    let inserted_row = 0
-
-    const select = await Db.get({
-      query: 'SELECT id FROM account WHERE username = ? OR mail = ? LIMIT 1',
-      preparedStatement: [fixtures.username, fixtures.mail],
-    })
-
-    if (!select[0]) {
-      inserted_row = await Db.commit({
-        query: 'INSERT INTO account SET ?',
-        preparedStatement: [fixtures],
-      })
-    }
-
-    urn1 = request.get('/account/status/mail/' + non_existent_data)
-    urn2 = request.get('/account/status/mail/' + fixtures.mail)
-
-    expect(inserted_row).toBeGreaterThanOrEqual(1)
-    done()
-  })
-  it('Réponse HTTP', async (done) => {
-    await urn1
+  it('Mail busy on fixtures', async (done) => {
+    const response = await request
+      .get('/account/status/mail/' + fixtures.mail)
       .set('csrf-token', csrf_header)
-      .then((response) => expect(response.statusCode).toBe(200))
+      .then((response) => response.body)
 
-    await urn2
+    expect(response.isAvailable).toBeFalsy()
+    done()
+  })
+  it('Mail free', async (done) => {
+    const mail_free = '_' + Misc.getRandomStr(25) + '@units_tests.na'
+
+    const response = await request
+      .get('/account/status/mail/' + mail_free)
       .set('csrf-token', csrf_header)
-      .then((response) => expect(response.statusCode).toBe(200))
+      .then((response) => response.body)
 
-    done()
-  })
-  it('Ask a csrf token', async (done) => {
-    expect(csrf_header).toBeDefined()
-    expect(csrf_header).not.toBe('')
-    done()
-  })
-  describe('if isAvailable is true', () => {
-    let body
-
-    beforeEach(async () => {
-      body = await urn1
-        .set('csrf-token', csrf_header)
-        .then((response) => response.body)
-    })
-
-    it('isAvailable must be true', (done) => {
-      expect(body.isAvailable).toBeTruthy()
-      done()
-    })
-  })
-  describe('if isAvailable is false', () => {
-    let body
-
-    beforeEach(async () => {
-      body = await urn2
-        .set('csrf-token', csrf_header)
-        .then((response) => response.body)
-    })
-
-    it('isAvailable must be false', (done) => {
-      expect(body.isAvailable).toBeFalsy()
-      done()
-    })
-  })
-  it('Delete fixtures', async (done) => {
-    const row_deleted = await Db.delete({
-      query: 'DELETE FROM account WHERE ? LIMIT 1',
-      preparedStatement: { username: fixtures.username },
-    })
-    expect(row_deleted).toBeGreaterThanOrEqual(1)
+    expect(response.isAvailable).toBeTruthy()
     done()
   })
 
-  afterAll(async () => {
-    // Restaure l'auto incrémentation
-    await Db.merge({
-      query: 'ALTER TABLE `account` auto_increment = 1;',
-    })
-    // Restaure l'auto incrémentation
-  })
+  afterAll(async () => {})
 })
