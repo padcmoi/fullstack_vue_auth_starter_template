@@ -1,16 +1,23 @@
 const mysql = require('mysql')
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASS,
-  database: process.env.MYSQL_DB,
-  multipleStatements: false,
-})
-// NOTE / REFLEXION
-// Nul besoin d'ouvrir et de fermer semble t'il ? par rapport à la doc npm mysql
-// connection.connect()
-// connection.end()
+/**
+ * Ouvre une connection
+ *
+ * @returns {Object}
+ */
+function openConnection() {
+  const connection = mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DB,
+    multipleStatements: false,
+  })
+
+  connection.connect()
+
+  return connection
+}
 
 /**
  *
@@ -21,28 +28,32 @@ const connection = mysql.createConnection({
  */
 function requestPromise(query, preparedStatement, hasTransaction = false) {
   const promise = new Promise((resolv, reject) => {
+    // Ouvre la connection dans la promesse
+    const connection = openConnection()
+
     // Transaction si activé
     if (hasTransaction) {
       connection.query('START TRANSACTION;', null)
     }
-    // Transaction si activé
 
     // Query
     connection.query(query, preparedStatement, (err, data) => {
       if (err) {
         // Transaction si activé
         if (hasTransaction) connection.query('ROLLBACK;', null)
-        // Transaction si activé
-        return console.error('ERREUR: ' + err + '\n\nQUERY: ' + query + '\n')
+
+        console.error('ERREUR: ' + err + '\n\nQUERY: ' + query + '\n')
+        resolv({}) // En cas de requete SQL erronée on ne paralyse pas l'Api
       } else {
         resolv(data)
       }
     })
-    // Query
 
     // Transaction si activé
     if (hasTransaction) connection.query('COMMIT;', null)
-    // Transaction si activé
+
+    // Ferme la connection dans la promesse
+    connection.end()
   })
 
   return promise
@@ -101,10 +112,9 @@ const db = {
    * @returns {Object}
    */
   async get(req = { query, preparedStatement }) {
-    const sql = connection.format(req.query, req.preparedStatement)
-    const result = await this.query(sql)
+    const data = await this.query(req.query, req.preparedStatement)
 
-    return result
+    return data
   },
 
   /**
@@ -118,8 +128,7 @@ const db = {
    * @returns {Number} - Last Insert ID
    */
   async commit(req = { query, preparedStatement }) {
-    const sql = connection.format(req.query, req.preparedStatement)
-    const data = await this.query(sql)
+    const data = await this.query(req.query, req.preparedStatement)
 
     return parseInt(data.insertId)
   },
@@ -135,8 +144,7 @@ const db = {
    * @returns {Number}
    */
   async merge(req = { query, preparedStatement }) {
-    const sql = connection.format(req.query, req.preparedStatement)
-    const data = await this.query(sql)
+    const data = await this.query(req.query, req.preparedStatement)
 
     return parseInt(data.changedRows)
   },
@@ -152,8 +160,7 @@ const db = {
    * @returns {Number} nombre de ligne(s) affectée(s)
    */
   async delete(req = { query, preparedStatement }) {
-    const sql = connection.format(req.query, req.preparedStatement)
-    const data = await this.query(sql)
+    const data = await this.query(req.query, req.preparedStatement)
 
     return parseInt(data.affectedRows)
   },
@@ -185,7 +192,9 @@ const db = {
    * @returns {String}
    */
   formatQuery(req = { query, preparedStatement }) {
+    const connection = openConnection()
     const sql = connection.format(req.query, req.preparedStatement)
+    connection.end()
     return sql
   },
 }
